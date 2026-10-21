@@ -1,0 +1,40 @@
+# Entorno
+.env
+.env.local
+.env.*.local
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Node / Next
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Datos y artefactos
+*.sqlite3
+*.db
+coverage/
+htmlcov/
+.DS_Store
+
+# Playwright / capturas temporales
+/screenshots/
+.playwright/
+
+# Configuración local de Docker (puede contener credenciales)
+.docker/
+.npm-cache/
+.ruff_cache/
+
+# Artefactos locales de verificación
+docs/screenshots-local/

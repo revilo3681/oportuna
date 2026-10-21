@@ -1,0 +1,6 @@
+node_modules
+.next
+.npm-cache
+npm-debug.log
+scripts
+public/.gitkeep
