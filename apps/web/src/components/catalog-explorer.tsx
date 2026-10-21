@@ -240,9 +240,27 @@ export function CatalogExplorer({
     <div>
       <div className="sticky top-[70px] z-30 -mx-5 border-b border-line bg-[var(--color-paper)]/95 px-5 py-3 backdrop-blur-md md:-mx-8 md:px-8">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          <div className="flex-1">
-            <SearchField value={filters.q} onChange={(value) => update("q", value)} />
-          </div>
+          <form
+            className="flex flex-1 items-center gap-2"
+            onSubmit={(event) => {
+              event.preventDefault();
+              setDebouncedQ(filters.q);
+              void fetchPage({ ...filters, q: filters.q }, 1);
+            }}
+          >
+            <div className="flex-1">
+              <SearchField value={filters.q} onChange={(value) => update("q", value)} />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn btn-primary shrink-0 !px-4 !py-3 disabled:opacity-60"
+              aria-label="Buscar ahora"
+            >
+              <Search size={14} />
+              <span className="hidden sm:inline">Buscar</span>
+            </button>
+          </form>
           <div className="flex items-center gap-2">
             <label className="sr-only" htmlFor="sort">
               Orden
