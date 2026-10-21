@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #f3f0e7;
-  --color-paper-raised: #fbf9f3;
-  --color-paper-deep: #e9e4d7;
-  --color-ink: #111310;
-  --color-ink-soft: #2c2f28;
-  --color-muted: #6a6d62;
-  --color-line: #d8d2c3;
-  --color-line-strong: #b9b2a0;
-  --color-signal: #df4a1a;
-  --color-signal-deep: #b93a12;
-  --color-signal-soft: #f9e3d8;
-  --color-fern: #1c6a4d;
-  --color-fern-soft: #e0ede4;
-  --color-amber: #8d6412;
-  --color-amber-soft: #f6ecd3;
-  --color-brick: #a32c25;
-  --color-brick-soft: #f7e1dd;
-  --color-moss: #55613c;
+  --color-paper: #f4f7fb;
+  --color-paper-raised: #ffffff;
+  --color-paper-deep: #e8eef7;
+  --color-ink: #0b1524;
+  --color-ink-soft: #293548;
+  --color-muted: #647184;
+  --color-line: #dce4f0;
+  --color-line-strong: #b8c6d9;
+  --color-signal: #3d5afe;
+  --color-signal-deep: #2743d8;
+  --color-signal-soft: #e8ecff;
+  --color-fern: #0b7a53;
+  --color-fern-soft: #e0f5eb;
+  --color-amber: #a15c00;
+  --color-amber-soft: #fff1d9;
+  --color-brick: #b42318;
+  --color-brick-soft: #fce7e4;
+  --color-moss: #2f6f63;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-instrument), ui-serif, Georgia, "Times New Roman", serif;

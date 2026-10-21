@@ -9,7 +9,7 @@ const COLUMNS = [
       { href: "/", label: "Panel diario" },
       { href: "/oportunidades", label: "Catálogo" },
       { href: "/calendario", label: "Calendario" },
-      { href: "/asistente", label: "Asistente" },
+      { href: "/asistente", label: "Asistente IA" },
     ],
   },
   {

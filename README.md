@@ -37,7 +37,7 @@ Estas decisiones están implementadas en código, no solo documentadas:
 | Ficha con fechas separadas, requisitos, premios, procedencia, historial y siguientes pasos | ✅ |
 | Perfil progresivo, disponibilidad y ranking personalizado con motivos | ✅ |
 | Guardadas, seguimiento, feedback de utilidad, calendario y exportación `.ics` | ✅ |
-| Asistente determinista sobre el catálogo verificado, con citas | ✅ |
+| Asistente con IA local (Ollama) sobre el catálogo verificado, con citas | ✅ |
 | Automatización con worker + scheduler y alertas de cierre | ✅ |
 | Panel de administración con fuentes, revisión, duplicados, métricas y auditoría | ✅ |
 | Docker Compose con Postgres, Redis, API, worker, scheduler, web y nginx | 🟡 Config validada; build de imágenes no completado en este entorno |
@@ -57,9 +57,22 @@ No hay datos de demostración presentados como reales. Si el catálogo está vac
 
 ![Ficha con procedencia y verificación](docs/screenshots/ficha.png)
 
+![Asistente con IA local](docs/screenshots/asistente-ia.png)
+
 ![Consola de administración](docs/screenshots/admin.png)
 
 ![Calendario personal](docs/screenshots/calendario.png)
+
+## IA local
+
+Oportuna usa **Ollama en tu equipo** (`gemma4:12b-q4` + `nomic-embed-text`). El asistente consulta el catálogo publicado, añade búsqueda semántica cuando hace falta, construye un contexto numerado y exige citas. Si el modelo falla, responde con reglas y lo indica.
+
+```bash
+ollama list
+curl -s http://127.0.0.1:8000/api/assistant/status
+```
+
+Configuración y límites en [`docs/AI-LOCAL.md`](docs/AI-LOCAL.md).
 
 ## Arquitectura
 
@@ -322,4 +335,5 @@ Ver [`docs/BACKLOG.md`](docs/BACKLOG.md) para el estado épica por épica y lo q
 - [`docs/RANKING.md`](docs/RANKING.md) — fórmula, elegibilidad y diversidad.
 - [`docs/RUNBOOK.md`](docs/RUNBOOK.md) — operación, incidencias y despliegue.
 - [`docs/BACKLOG.md`](docs/BACKLOG.md) — épicas y estado real.
+- [`docs/AI-LOCAL.md`](docs/AI-LOCAL.md) — IA local, privacidad, prompts y rendimiento.
 - [`docs/GAPS.md`](docs/GAPS.md) — qué falta para operar en producción y qué depende de terceros.
