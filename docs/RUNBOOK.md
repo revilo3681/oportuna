@@ -112,6 +112,18 @@ docker compose exec api alembic revision --autogenerate -m "cambio"
 
 Antes de migrar en producción: backup y prueba en una copia. No ejecutes `create_all` en producción; las tablas las gobierna Alembic.
 
+## Backup programado
+
+```bash
+# Manual
+./scripts/backup.sh ./backups
+
+# Cron diario a las 03:15 (ejemplo)
+15 3 * * * cd /ruta/a/oportuna && ./scripts/backup.sh ./backups >> ./backups/backup.log 2>&1
+```
+
+El script usa `pg_dump -Fc`, aborta si el backup está vacío y conserva 14 días por defecto (`BACKUP_RETENTION_DAYS`). Guarda los backups fuera del volumen de Docker y prueba la restauración periódicamente.
+
 ## Backup y restauración
 
 ```bash

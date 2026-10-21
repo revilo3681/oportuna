@@ -14,7 +14,7 @@
 | 8 | Panel de administración | ✅ Hecho | Fuentes, revisión, correcciones auditadas, duplicados, métricas y auditoría. |
 | 9 | Arquitectura e infraestructura | ✅ Hecho | Compose con 7 servicios, migraciones automáticas, healthchecks, nginx. |
 | 10 | Expansión global y multilingüe | 🟡 Parcial | Señales en África, Asia y Oceanía vía PyTorch/RSS. Faltan feeds institucionales estables por región. |
-| 11 | Inteligencia avanzada | 🟡 Parcial | Asistente determinista, relacionadas, seguimiento. Faltan estimación de esfuerzo y matching de equipos. |
+| 11 | Inteligencia avanzada | 🟡 Parcial | Asistente con IA local y citas, relacionadas, seguimiento. Faltan estimación de esfuerzo y matching de equipos. |
 | 12 | Métricas de producto y calidad | 🟡 Parcial | Métricas internas de cobertura/frescura/errores/coste. Faltan analytics de utilidad y validación manual muestral. |
 
 ---
@@ -177,7 +177,7 @@ Siguiente:
 
 Hecho:
 
-- Asistente determinista con citas y negativa a inventar.
+- Asistente con IA local (Ollama + embeddings) con citas, fallback determinista y negativa a inventar.
 - Oportunidades relacionadas.
 - Seguimiento guardada → postulada → aceptada.
 - Feedback de utilidad.

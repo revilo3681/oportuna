@@ -82,7 +82,7 @@ Hoy las alertas se generan y se guardan (`alerts`), pero no se envían.
 
 | Qué falta | Detalle |
 | --- | --- |
-| Asistente con LLM | Hoy responde con reglas y citas. Con LLM habría que mantener citas obligatorias, tratar contenido externo como no fiable y medir alucinaciones. |
+| Asistente con LLM en la nube | Ya existe IA local (Ollama + embeddings) con citas y fallback. Falta evaluación de alucinaciones, streaming y, si se desea, un proveedor en la nube. |
 | Búsqueda semántica | Requiere embeddings y vectores; útil cuando el catálogo crezca. |
 | Estimación de esfuerzo | Solo cuando la fuente publica duración/preparación. Un modelo requeriría validación humana. |
 | Matching de equipos | Función social posterior; requiere moderación y privacidad. |
