@@ -11,7 +11,7 @@
 | 5 | Perfil de usuario y disponibilidad | ✅ Hecho | Onboarding < 2 min, perfil progresivo, borrado de perfil/cuenta, distinción asistir/preparar. |
 | 6 | Ranking y recomendaciones | 🟡 Parcial | Pesos, motivos, diversidad y elegibilidad. Falta A/B testing y feedback agregado en el ranking. |
 | 7 | Automatización y tareas programadas | ✅ Hecho | Worker, scheduler, reverificación, alertas, métricas y política de fallos. |
-| 8 | Panel de administración | ✅ Hecho | Fuentes, revisión, correcciones, duplicados, métricas y auditoría. |
+| 8 | Panel de administración | ✅ Hecho | Fuentes, revisión, correcciones auditadas, duplicados, métricas y auditoría. |
 | 9 | Arquitectura e infraestructura | ✅ Hecho | Compose con 7 servicios, migraciones automáticas, healthchecks, nginx. |
 | 10 | Expansión global y multilingüe | 🟡 Parcial | Señales en África, Asia y Oceanía vía PyTorch/RSS. Faltan feeds institucionales estables por región. |
 | 11 | Inteligencia avanzada | 🟡 Parcial | Asistente determinista, relacionadas, seguimiento. Faltan estimación de esfuerzo y matching de equipos. |
@@ -134,13 +134,13 @@ Hecho:
 
 - Resumen de calidad, fuentes, revisión, duplicados, auditoría.
 - Aprobar/ocultar con nota.
-- Corrección de campos vía API.
+- Corrección de campos desde la consola con auditoría (`PATCH /api/admin/opportunities/{id}`).
 - Alta de fuentes.
 - Ejecución manual.
 
 Siguiente:
 
-- Formulario de corrección en la propia consola (hoy vía API o edición directa).
+- Corrección de fechas de evento y premios desde un formulario más rico.
 - Comparación visual de procedencia en conflictos.
 - Historial de decisiones por administrador.
 

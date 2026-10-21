@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import uuid
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from arq import create_pool
 from arq.connections import RedisSettings
@@ -46,6 +46,18 @@ from oportuna.domain.normalize import normalize_text
 from oportuna.domain.taxonomy import CATEGORIES, country_name
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+
+
+def _audit_value(value):
+    if isinstance(value, datetime):
+        return ensure_utc(value).isoformat()
+    if isinstance(value, dict):
+        return {key: _audit_value(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_audit_value(item) for item in value]
+    if isinstance(value, uuid.UUID):
+        return str(value)
+    return value
 
 
 @router.get("/stats")
@@ -451,8 +463,8 @@ def patch_opportunity(
             OpportunityChange(
                 opportunity_id=row.id,
                 field=key,
-                old_value={"value": old} if not isinstance(old, (dict, list)) else {"value": old},
-                new_value={"value": value},
+                old_value={"value": _audit_value(old)},
+                new_value={"value": _audit_value(value)},
                 source_id=None,
                 actor="admin",
                 reason="Corrección manual",

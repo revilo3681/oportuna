@@ -260,12 +260,17 @@ La documentación interactiva está en `/api/docs`.
 
 ---
 
+## Estado de verificación local
+
+- **34 tests** de backend en verde (fechas, dedup, confianza, API, admin, asistente).
+- `npx tsc --noEmit` y `npm run build` sin errores.
+- Ingesta real ejecutada contra las 7 fuentes activas: **104 oportunidades publicadas** y 109 abiertas en el catálogo local.
+- Flujo autenticado verificado con Chrome headless: registro, login, perfil, guardadas, calendario, ICS y consola de administración.
+- Capturas reales en [`docs/screenshots`](docs/screenshots).
+- Docker: `docker compose config` válido; la construcción de imágenes no se completó en este equipo por un fallo del daemon/BuildKit, no por los Dockerfiles.
+
 ## Tests
 
-```bash
-cd apps/api
-../../.venv/bin/python -m pytest -q
-```
 
 Cubre:
 

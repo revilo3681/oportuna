@@ -230,3 +230,34 @@ def test_opportunity_ics_export(client, session_factory):
     assert response.headers["content-type"].startswith("text/calendar")
     assert "ICS Export Hackathon" in response.text
     assert "BEGIN:VEVENT" in response.text
+
+
+def test_admin_can_correct_fields_with_audit(client, admin_client, session_factory):
+    session = session_factory()
+    opportunity = create_opportunity(
+        session,
+        slug="to-correct",
+        title="Titulo con error",
+        published=False,
+        review_state="needs_review",
+        verification_state="pending",
+        confidence=0.5,
+    )
+    opportunity_id = str(opportunity.id)
+    session.close()
+
+    response = admin_client.patch(
+        f"/api/admin/opportunities/{opportunity_id}",
+        json={"title": "Título corregido", "registration_deadline": None, "cost_type": "free"},
+    )
+    assert response.status_code == 200, response.text
+
+    detail = admin_client.get("/api/opportunities/to-correct")
+    assert detail.status_code == 200
+    assert detail.json()["title"] == "Título corregido"
+    assert detail.json()["deadline"]["registration_deadline"] is None
+
+    audit = admin_client.get(f"/api/admin/audit?opportunity_id={opportunity_id}")
+    fields = {row["field"] for row in audit.json()["items"]}
+    assert "title" in fields
+    assert all(row["actor"] == "admin" for row in audit.json()["items"] if row["field"] == "title")

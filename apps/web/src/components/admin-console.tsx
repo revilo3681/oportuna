@@ -158,6 +158,31 @@ export function AdminConsole({ adminName }: { adminName: string }) {
     }
   }
 
+  async function correctOpportunity(id: string, event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const payload: Record<string, unknown> = {
+      modality: String(form.get("modality") ?? "unknown"),
+      cost_type: String(form.get("cost_type") ?? "unknown"),
+    };
+    const title = String(form.get("title") ?? "").trim();
+    const officialUrl = String(form.get("official_url") ?? "").trim();
+    const deadline = String(form.get("registration_deadline") ?? "").trim();
+    if (title) payload.title = title;
+    if (officialUrl) payload.official_url = officialUrl;
+    payload.registration_deadline = deadline ? new Date(`${deadline}T23:59:59Z`).toISOString() : null;
+    try {
+      await request(`/api/admin/opportunities/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+      });
+      flash("Corrección guardada y registrada en la auditoría.");
+      await loadAll();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error");
+    }
+  }
+
   async function resolveDuplicate(id: string, action: "merge" | "reject") {
     try {
       await request(`/api/admin/duplicates/${id}/resolve`, {
@@ -471,6 +496,53 @@ export function AdminConsole({ adminName }: { adminName: string }) {
                       <p className="mt-1">Publicada: {item.verification.published ? "sí" : "no"}</p>
                     </div>
                   </div>
+                  <details className="border-t border-line bg-paper/40 px-4 py-3">
+                    <summary className="cursor-pointer font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                      Corregir datos extraídos
+                    </summary>
+                    <form onSubmit={(event) => correctOpportunity(item.id, event)} className="mt-4 grid gap-3 sm:grid-cols-2">
+                      <div className="sm:col-span-2">
+                        <label className="label" htmlFor={`title-${item.id}`}>Título</label>
+                        <input id={`title-${item.id}`} name="title" defaultValue={item.title} className="field" maxLength={400} />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="label" htmlFor={`url-${item.id}`}>Enlace oficial</label>
+                        <input id={`url-${item.id}`} name="official_url" defaultValue={item.official_url} className="field" />
+                      </div>
+                      <div>
+                        <label className="label" htmlFor={`deadline-${item.id}`}>Fecha límite de inscripción</label>
+                        <input
+                          id={`deadline-${item.id}`}
+                          name="registration_deadline"
+                          type="date"
+                          defaultValue={item.deadline.registration_deadline?.slice(0, 10) ?? ""}
+                          className="field"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="label" htmlFor={`modality-${item.id}`}>Modalidad</label>
+                          <select id={`modality-${item.id}`} name="modality" defaultValue={item.modality.key} className="field">
+                            {["unknown", "online", "presencial", "hibrida"].map((value) => (
+                              <option key={value} value={value}>{value}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="label" htmlFor={`cost-${item.id}`}>Coste</label>
+                          <select id={`cost-${item.id}`} name="cost_type" defaultValue={item.cost.type} className="field">
+                            {["unknown", "free", "paid"].map((value) => (
+                              <option key={value} value={value}>{value}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 sm:col-span-2">
+                        <button type="submit" className="btn btn-primary !py-2 text-[11px]">Guardar corrección</button>
+                        <span className="text-[10px] text-muted">La corrección se audita con tu usuario; no cambia la fuente original.</span>
+                      </div>
+                    </form>
+                  </details>
                 </article>
               ))}
             </div>
