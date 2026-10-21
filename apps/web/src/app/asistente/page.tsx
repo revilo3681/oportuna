@@ -1,5 +1,6 @@
 import { AssistantPanel } from "@/components/assistant-panel";
-import { getSessionUser } from "@/lib/api";
+import { apiGet, getSessionUser } from "@/lib/api";
+import type { AssistantStatus } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -11,11 +12,17 @@ export const metadata = {
 
 export default async function AssistantPage() {
   const user = await getSessionUser();
+  let aiStatus: AssistantStatus | null = null;
+  try {
+    aiStatus = await apiGet<AssistantStatus>("/assistant/status");
+  } catch {
+    aiStatus = null;
+  }
 
   return (
     <div className="shell py-10 lg:py-14">
       <header className="max-w-3xl">
-        <p className="eyebrow mb-3">Asistente · catálogo verificado</p>
+        <p className="eyebrow mb-3">Asistente · IA local sobre catálogo verificado</p>
         <h1 className="display text-[44px] leading-[0.98] tracking-[-0.03em] sm:text-[58px]">
           Pregunta como
           <br />
@@ -24,13 +31,12 @@ export default async function AssistantPage() {
           que ya revisó las fuentes.
         </h1>
         <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-muted">
-          Sin ruido, sin enlaces muertos y sin eventos inventados. El asistente traduce tu pregunta a
-          filtros reales, consulta el catálogo publicado y cita de dónde sale cada respuesta.
+          Sin ruido, sin enlaces muertos y sin eventos inventados. Tu IA local traduce la pregunta a filtros, consulta el catálogo publicado y cita de dónde sale cada respuesta. Nada se envía a la nube.
         </p>
       </header>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_290px]">
-        <AssistantPanel userName={user ? user.display_name || user.email : null} />
+        <AssistantPanel userName={user ? user.display_name || user.email : null} initialStatus={aiStatus} />
 
         <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
           <div className="border border-line bg-paper-raised p-5">

@@ -14,7 +14,10 @@ x-api-env: &api-env
   OPORTUNA_DIGEST_HOUR_UTC: ${OPORTUNA_DIGEST_HOUR_UTC:-12}
   OPORTUNA_AUTO_PUBLISH_MIN_CONFIDENCE: ${OPORTUNA_AUTO_PUBLISH_MIN_CONFIDENCE:-0.70}
   OPORTUNA_HTTP_USER_AGENT: "${OPORTUNA_HTTP_USER_AGENT:-OportunaBot/0.1 (+https://github.com/oportuna; opportunity research; contact: hello@oportuna.dev)}"
-  OPORTUNA_LLM_API_KEY: ${OPORTUNA_LLM_API_KEY:-}
+  OPORTUNA_LLM_ENABLED: ${OPORTUNA_LLM_ENABLED:-true}
+  OPORTUNA_LLM_BASE_URL: ${OPORTUNA_LLM_BASE_URL:-http://host.docker.internal:11434}
+  OPORTUNA_LLM_MODEL: ${OPORTUNA_LLM_MODEL:-gemma4:12b-q4}
+  OPORTUNA_LLM_EMBED_MODEL: ${OPORTUNA_LLM_EMBED_MODEL:-nomic-embed-text:latest}
 
 services:
   db:
@@ -58,6 +61,8 @@ services:
         condition: service_healthy
     ports:
       - "8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test:
         [

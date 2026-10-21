@@ -46,9 +46,16 @@ class Settings(BaseSettings):
     verify_interval_minutes: int = 60
     digest_hour_utc: int = 12
 
-    # Optional LLM enrichment is off unless a key is configured.
+    # Local AI (Ollama). No external provider required.
+    llm_enabled: bool = True
+    llm_base_url: str = "http://127.0.0.1:11434"
+    llm_model: str = "gemma4:12b-q4"
+    llm_embed_model: str = "nomic-embed-text:latest"
+    llm_timeout_seconds: int = 180
+    llm_temperature: float = 0.2
+    llm_max_context_items: int = 6
+    llm_max_output_tokens: int = 350
     llm_api_key: str | None = Field(default=None, repr=False)
-    llm_model: str | None = None
 
     @property
     def cors_origin_list(self) -> list[str]:

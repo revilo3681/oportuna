@@ -363,7 +363,30 @@ export type AssistantAnswer = {
     source: string | null;
     path: string;
   }[];
-  grounding: { mode: string; uses_llm: boolean; published_only: boolean; note: string };
+  grounding: {
+    mode: string;
+    uses_llm: boolean;
+    published_only: boolean;
+    note: string;
+    model?: string | null;
+    embed_model?: string | null;
+    latency_ms?: number;
+    retrieved?: number;
+    semantic_search?: boolean;
+    error?: string | null;
+  };
+  ai?: AssistantStatus;
+};
+
+export type AssistantStatus = {
+  available: boolean;
+  enabled: boolean;
+  provider: string;
+  model: string | null;
+  embed_model: string | null;
+  models: string[];
+  base_url?: string;
+  detail: string | null;
 };
 
 export type CalendarItem = {
