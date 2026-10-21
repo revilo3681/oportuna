@@ -74,7 +74,7 @@ MODALITIES = {
 COST_TYPES = {"free": "Gratis", "paid": "De pago", "unknown": "Por confirmar"}
 
 LIFECYCLES = {
-    "open": "Inscripción abierta",
+    "open": "Convocatoria abierta",
     "closed": "Inscripción cerrada",
     "cancelled": "Cancelado",
     "finished": "Finalizado",

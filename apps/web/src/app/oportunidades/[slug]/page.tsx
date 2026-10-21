@@ -63,6 +63,16 @@ export default async function OpportunityPage({ params }: { params: Promise<Para
   const isAdminPreview = !item.verification.published && user?.role === "admin";
   const urgency = urgencyClasses(item.deadline.urgency);
   const closed = ["closed", "finished", "cancelled"].includes(item.lifecycle.key);
+  const registrationLabel =
+    item.registration_state === "open"
+      ? "Inscripción abierta"
+      : item.registration_state === "closed"
+        ? "Inscripción cerrada"
+        : "Inscripción por confirmar";
+  const registrationNote =
+    item.registration_state === "unknown"
+      ? "La fuente consultada no declara si el registro sigue abierto; no lo inferimos desde el enlace."
+      : null;
 
   type DateEntry = {
     label: string;
@@ -500,6 +510,15 @@ export default async function OpportunityPage({ params }: { params: Promise<Para
                   ? `${item.deadline.kind === "submission" ? "Cierre de entregas" : "Cierre de inscripción"}: ${formatDate(item.deadline.effective)}`
                   : "Fecha límite no publicada por la fuente"}
               </p>
+              <div className="mt-3 border-t border-line pt-3">
+                <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                  Estado de inscripción
+                </p>
+                <p className="mt-1 text-[12px] text-ink-soft">{registrationLabel}</p>
+                {registrationNote && (
+                  <p className="mt-1 text-[10px] leading-relaxed text-muted">{registrationNote}</p>
+                )}
+              </div>
               {item.deadline.kind === "submission" && (
                 <p className="mt-2 text-[10px] leading-relaxed text-muted">
                   Devpost publica este cierre como fin del periodo de envíos. No confirma por sí solo

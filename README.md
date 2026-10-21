@@ -322,3 +322,4 @@ Ver [`docs/BACKLOG.md`](docs/BACKLOG.md) para el estado épica por épica y lo q
 - [`docs/RANKING.md`](docs/RANKING.md) — fórmula, elegibilidad y diversidad.
 - [`docs/RUNBOOK.md`](docs/RUNBOOK.md) — operación, incidencias y despliegue.
 - [`docs/BACKLOG.md`](docs/BACKLOG.md) — épicas y estado real.
+- [`docs/GAPS.md`](docs/GAPS.md) — qué falta para operar en producción y qué depende de terceros.
